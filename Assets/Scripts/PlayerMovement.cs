@@ -59,7 +59,7 @@ public class PlayerMovement : MonoBehaviour
 
         controller.Move(move * Time.deltaTime);
 
-        // 머리 흔들기
+        // 머리 흔들기(like 은총)
         if (controller.isGrounded && (h != 0 || v != 0))
         {
             headBobTimer += Time.deltaTime * 10f;
