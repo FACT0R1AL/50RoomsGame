@@ -46,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 move = transform.right * h + transform.forward * v;
         move *= moveSpeed;
 
-        // 운1123지
+        // 중력
         if (controller.isGrounded && verticalVelocity < 0)
         {
             verticalVelocity = -2f;
@@ -59,7 +59,7 @@ public class PlayerMovement : MonoBehaviour
 
         controller.Move(move * Time.deltaTime);
 
-        // 머리 흔들기(like 은총)
+        // 머리 흔들기
         if (controller.isGrounded && (h != 0 || v != 0))
         {
             headBobTimer += Time.deltaTime * 10f;
@@ -67,14 +67,14 @@ public class PlayerMovement : MonoBehaviour
             float bobSpeed = 2f;
             cameraTransform.localPosition = defaultCameraPos + new Vector3(
                 0f,
-                Mathf.Sin(headBobTimer * bobSpeed) * bobAmount,
+                Mathf.Sin(headBobTimer * bobSpeed) * bobAmount + 0.5f,
                 0f
             );
         }
         else
         {
             cameraTransform.localPosition = Vector3.Lerp(cameraTransform.localPosition,
-                defaultCameraPos, Time.deltaTime * 5f);
+                defaultCameraPos + Vector3.up * 0.5f, Time.deltaTime * 5f);
         }
 
 
