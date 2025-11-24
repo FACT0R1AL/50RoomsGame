@@ -104,7 +104,6 @@ public class Elevator : MonoBehaviour
         seq.OnComplete(() =>
         {
             nextFloor = true;
-            ElevatorManager.instance.Floor++;
         });
     }
 }

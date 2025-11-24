@@ -56,5 +56,6 @@ public class ElevatorManager : MonoBehaviour
     {
         StartCoroutine(elevator1.GetComponent<Elevator>().Up());
         StartCoroutine(elevator2.GetComponent<Elevator>().Up());
+        Floor++;
     }
 }
