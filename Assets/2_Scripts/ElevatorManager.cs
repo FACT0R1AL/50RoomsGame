@@ -10,25 +10,13 @@ public class ElevatorManager : MonoBehaviour
     
     // x+ EV
     public GameObject elevator1;
+    private Elevator elevator1E;
     // x- EV
     public GameObject elevator2;
+    private Elevator elevator2E;
 
     public bool isIN;
     public bool isOpen;
-    
-    // 로비 = 0층
-    private int floor;
-    public int Floor
-    {
-        get => floor;
-        set
-        {
-            if (floor == value) return; // 같은 값이면 이벤트 방지
-            floor = value;
-            ChangeNextFloor();
-        }
-    }
-
     
     void Awake()
     {
@@ -41,21 +29,28 @@ public class ElevatorManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
-        Floor = 0;
-        ChangeNextFloor();
+        
+        elevator1E = elevator1.GetComponent<Elevator>();
+        elevator2E = elevator2.GetComponent<Elevator>();
     }
 
-    private void ChangeNextFloor()
+    void Start()
     {
-        elevator1.GetComponent<Elevator>().canNextFloor = Floor % 2 == 0;
-        elevator2.GetComponent<Elevator>().canNextFloor = Floor % 2 == 1;
+        ChangeNextFloor();
+        GameManager.instance.OnFloorChanged += ChangeNextFloor;
     }
+
 
     public void StartUp()
     {
-        StartCoroutine(elevator1.GetComponent<Elevator>().Up());
-        StartCoroutine(elevator2.GetComponent<Elevator>().Up());
-        Floor++;
+        StartCoroutine(elevator1E.Up());
+        StartCoroutine(elevator2E.Up());
+        GameManager.instance.Floor++;
+    }
+    
+    private void ChangeNextFloor()
+    {
+        elevator1E.canNextFloor = GameManager.instance.Floor % 2 == 0;
+        elevator2E.canNextFloor = GameManager.instance.Floor % 2 == 1;
     }
 }

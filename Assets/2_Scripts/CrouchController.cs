@@ -25,6 +25,8 @@ public class PlayerCrouch : MonoBehaviour
 
     [HideInInspector]
     public float currentSpeed;
+    
+    public bool IsCrouched => isCrouched;
 
     void Start()
     {

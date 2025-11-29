@@ -3,6 +3,7 @@ using UnityEngine;
 public class RaycastCheck : MonoBehaviour
 {
     private Outline currentOutline;
+    private RadioVolumeController currentRadio;
 
     void Update()
     {
@@ -24,6 +25,22 @@ public class RaycastCheck : MonoBehaviour
                 outline.enabled = true;
                 currentOutline = outline;
             }
+
+            // 라디오를 보고 있을 때 F 키로 상호작용
+            RadioVolumeController radio = hit.collider.GetComponentInParent<RadioVolumeController>();
+            if (radio != null)
+            {
+                currentRadio = radio;
+
+                if (Input.GetKeyDown(KeyCode.F))
+                {
+                    radio.ApplyNextVolumeStep();
+                }
+            }
+            else
+            {
+                currentRadio = null;
+            }
         }
         else
         {
@@ -33,6 +50,8 @@ public class RaycastCheck : MonoBehaviour
                 currentOutline.enabled = false;
                 currentOutline = null;
             }
+
+            currentRadio = null;
         }
     }
 
