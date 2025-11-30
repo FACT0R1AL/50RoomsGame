@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
             if (floor == value) return;
             floor = value;
             OnFloorChanged?.Invoke();
+            Debug.Log($"OnFloorChanged to {floor}");
         }
     }
     

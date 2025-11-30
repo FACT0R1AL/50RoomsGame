@@ -16,13 +16,11 @@ public class PlayerMovement : MonoBehaviour
 
     private float headBobTimer = 0f;
     private Vector3 defaultCameraPos;
-
-
+    
     void Start()
     {
         controller = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;
-
     }
 
     void Update()
@@ -76,8 +74,7 @@ public class PlayerMovement : MonoBehaviour
             cameraTransform.localPosition = Vector3.Lerp(cameraTransform.localPosition,
                 defaultCameraPos + Vector3.up * 0.5f, Time.deltaTime * 5f);
         }
-
-
+        
     }
 
 }

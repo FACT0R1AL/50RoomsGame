@@ -82,6 +82,7 @@ public class Elevator : MonoBehaviour
         // 다음 층으로 올라간 후 문 열림
         else if (nextFloor)
         {
+            AudioManager.instance.PlaySFX("ElevatorAlarm", transform.position);
             door1.transform.DOMoveZ(doorMoving, 1);
             door2.transform.DOMoveZ(-doorMoving, 1);
             nextFloor = false;
@@ -96,9 +97,12 @@ public class Elevator : MonoBehaviour
     {
         yield return new WaitForSeconds(1.5f);
         
+        Vector3 pos = new Vector3(transform.position.x, transform.position.y + 7.5f, transform.position.z);
+        AudioManager.instance.PlaySFX("ElevatorUp", pos, followTarget:elevator.transform);
+        
         Sequence seq = DOTween.Sequence();
-        seq.Join(elevator.transform.DOMoveY(elevator.transform.position.y + 15f, 5f));
-        seq.Join(player.transform.DOMoveY(player.transform.position.y + 15f, 5f));
+        seq.Join(elevator.transform.DOMoveY(elevator.transform.position.y + 15f, 12f));
+        // seq.Join(player.transform.DOMoveY(player.transform.position.y + 10f, 12f));
         seq.AppendCallback(() => door1InitialPos = door1.transform.position);
         seq.AppendCallback(() => door2InitialPos = door2.transform.position);
         seq.OnComplete(() =>
